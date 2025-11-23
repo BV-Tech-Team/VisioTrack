@@ -10,9 +10,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Logo and Description */}
           <div className="col-span-1 md:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-center mb-4">
               <Image
-                src="/logo.png"
+                src="/photos/logo.png"
                 alt="VisioTrack Logo"
                 width={35}
                 height={35}

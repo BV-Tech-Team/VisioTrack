@@ -11,7 +11,7 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-20">
           {/* Logo on the left */}
           <div className="shrink-0">
-            <Link href="/" className="flex items-center gap-3">
+            <Link href="/" className="flex items-center">
               <Image
                 src="/photos/logo.png"
                 alt="VisioTrack Logo"
