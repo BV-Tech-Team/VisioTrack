@@ -1,0 +1,1324 @@
+{
+  "frames": [
+    {
+      "frame": 0,
+      "bbox": [
+        1284,
+        833,
+        901,
+        436
+      ],
+      "visible": true
+    },
+    {
+      "frame": 3,
+      "bbox": [
+        1290,
+        821,
+        850,
+        452
+      ],
+      "visible": true
+    },
+    {
+      "frame": 6,
+      "bbox": [
+        1299,
+        808,
+        859,
+        457
+      ],
+      "visible": true
+    },
+    {
+      "frame": 9,
+      "bbox": [
+        1262,
+        794,
+        851,
+        478
+      ],
+      "visible": true
+    },
+    {
+      "frame": 12,
+      "bbox": [
+        1251,
+        798,
+        901,
+        474
+      ],
+      "visible": true
+    },
+    {
+      "frame": 15,
+      "bbox": [
+        1219,
+        790,
+        881,
+        469
+      ],
+      "visible": true
+    },
+    {
+      "frame": 18,
+      "bbox": [
+        1205,
+        797,
+        895,
+        466
+      ],
+      "visible": true
+    },
+    {
+      "frame": 21,
+      "bbox": [
+        1188,
+        815,
+        908,
+        444
+      ],
+      "visible": true
+    },
+    {
+      "frame": 24,
+      "bbox": [
+        1138,
+        821,
+        972,
+        423
+      ],
+      "visible": true
+    },
+    {
+      "frame": 27,
+      "bbox": [
+        1148,
+        816,
+        974,
+        443
+      ],
+      "visible": true
+    },
+    {
+      "frame": 30,
+      "bbox": [
+        1120,
+        859,
+        1029,
+        395
+      ],
+      "visible": true
+    },
+    {
+      "frame": 33,
+      "bbox": [
+        1095,
+        849,
+        1009,
+        437
+      ],
+      "visible": true
+    },
+    {
+      "frame": 36,
+      "bbox": [
+        1069,
+        830,
+        1047,
+        470
+      ],
+      "visible": true
+    },
+    {
+      "frame": 39,
+      "bbox": [
+        1068,
+        833,
+        1084,
+        452
+      ],
+      "visible": true
+    },
+    {
+      "frame": 42,
+      "bbox": [
+        1024,
+        823,
+        1111,
+        482
+      ],
+      "visible": true
+    },
+    {
+      "frame": 45,
+      "bbox": [
+        1077,
+        861,
+        1060,
+        420
+      ],
+      "visible": true
+    },
+    {
+      "frame": 48,
+      "bbox": [
+        996,
+        850,
+        1184,
+        463
+      ],
+      "visible": true
+    },
+    {
+      "frame": 51,
+      "bbox": [
+        973,
+        844,
+        1108,
+        461
+      ],
+      "visible": true
+    },
+    {
+      "frame": 54,
+      "bbox": [
+        977,
+        843,
+        1094,
+        467
+      ],
+      "visible": true
+    },
+    {
+      "frame": 57,
+      "bbox": [
+        935,
+        823,
+        1125,
+        484
+      ],
+      "visible": true
+    },
+    {
+      "frame": 60,
+      "bbox": [
+        923,
+        854,
+        1048,
+        460
+      ],
+      "visible": true
+    },
+    {
+      "frame": 63,
+      "bbox": [
+        924,
+        893,
+        1037,
+        420
+      ],
+      "visible": true
+    },
+    {
+      "frame": 66,
+      "bbox": [
+        897,
+        862,
+        1087,
+        516
+      ],
+      "visible": true
+    },
+    {
+      "frame": 69,
+      "bbox": [
+        896,
+        877,
+        1036,
+        428
+      ],
+      "visible": true
+    },
+    {
+      "frame": 72,
+      "bbox": [
+        872,
+        870,
+        1067,
+        478
+      ],
+      "visible": true
+    },
+    {
+      "frame": 75,
+      "bbox": [
+        844,
+        865,
+        1113,
+        464
+      ],
+      "visible": true
+    },
+    {
+      "frame": 78,
+      "bbox": [
+        841,
+        866,
+        1109,
+        506
+      ],
+      "visible": true
+    },
+    {
+      "frame": 81,
+      "bbox": [
+        827,
+        851,
+        1098,
+        504
+      ],
+      "visible": true
+    },
+    {
+      "frame": 84,
+      "bbox": [
+        806,
+        861,
+        1171,
+        533
+      ],
+      "visible": true
+    },
+    {
+      "frame": 87,
+      "bbox": [
+        793,
+        888,
+        1143,
+        491
+      ],
+      "visible": true
+    },
+    {
+      "frame": 90,
+      "bbox": [
+        773,
+        874,
+        1201,
+        520
+      ],
+      "visible": true
+    },
+    {
+      "frame": 93,
+      "bbox": [
+        785,
+        922,
+        1216,
+        474
+      ],
+      "visible": true
+    },
+    {
+      "frame": 96,
+      "bbox": [
+        765,
+        908,
+        1148,
+        449
+      ],
+      "visible": true
+    },
+    {
+      "frame": 99,
+      "bbox": [
+        778,
+        950,
+        1147,
+        377
+      ],
+      "visible": true
+    },
+    {
+      "frame": 102,
+      "bbox": [
+        830,
+        910,
+        1085,
+        450
+      ],
+      "visible": true
+    },
+    {
+      "frame": 105,
+      "bbox": [
+        777,
+        933,
+        1180,
+        431
+      ],
+      "visible": true
+    },
+    {
+      "frame": 108,
+      "bbox": [
+        781,
+        947,
+        1190,
+        456
+      ],
+      "visible": true
+    },
+    {
+      "frame": 111,
+      "bbox": [
+        809,
+        903,
+        1128,
+        504
+      ],
+      "visible": true
+    },
+    {
+      "frame": 114,
+      "bbox": [
+        812,
+        881,
+        1123,
+        512
+      ],
+      "visible": true
+    },
+    {
+      "frame": 117,
+      "bbox": [
+        848,
+        903,
+        1119,
+        501
+      ],
+      "visible": true
+    },
+    {
+      "frame": 120,
+      "bbox": [
+        846,
+        919,
+        1165,
+        440
+      ],
+      "visible": true
+    },
+    {
+      "frame": 123,
+      "bbox": [
+        869,
+        919,
+        1209,
+        504
+      ],
+      "visible": true
+    },
+    {
+      "frame": 126,
+      "bbox": [
+        888,
+        893,
+        1126,
+        510
+      ],
+      "visible": true
+    },
+    {
+      "frame": 129,
+      "bbox": [
+        888,
+        895,
+        1186,
+        541
+      ],
+      "visible": true
+    },
+    {
+      "frame": 132,
+      "bbox": [
+        910,
+        893,
+        1177,
+        484
+      ],
+      "visible": true
+    },
+    {
+      "frame": 135,
+      "bbox": [
+        905,
+        923,
+        1235,
+        436
+      ],
+      "visible": true
+    },
+    {
+      "frame": 138,
+      "bbox": [
+        950,
+        887,
+        1187,
+        533
+      ],
+      "visible": true
+    },
+    {
+      "frame": 141,
+      "bbox": [
+        956,
+        908,
+        1191,
+        439
+      ],
+      "visible": true
+    },
+    {
+      "frame": 144,
+      "bbox": [
+        999,
+        909,
+        1150,
+        437
+      ],
+      "visible": true
+    },
+    {
+      "frame": 147,
+      "bbox": [
+        1007,
+        858,
+        1150,
+        522
+      ],
+      "visible": true
+    },
+    {
+      "frame": 150,
+      "bbox": [
+        1033,
+        874,
+        1084,
+        467
+      ],
+      "visible": true
+    },
+    {
+      "frame": 153,
+      "bbox": [
+        1075,
+        816,
+        993,
+        512
+      ],
+      "visible": true
+    },
+    {
+      "frame": 156,
+      "bbox": [
+        1161,
+        768,
+        971,
+        590
+      ],
+      "visible": true
+    },
+    {
+      "frame": 159,
+      "bbox": [
+        1200,
+        777,
+        982,
+        565
+      ],
+      "visible": true
+    },
+    {
+      "frame": 162,
+      "bbox": [
+        1216,
+        822,
+        885,
+        514
+      ],
+      "visible": true
+    },
+    {
+      "frame": 165,
+      "bbox": [
+        1245,
+        727,
+        951,
+        621
+      ],
+      "visible": true
+    },
+    {
+      "frame": 168,
+      "bbox": [
+        1272,
+        768,
+        924,
+        596
+      ],
+      "visible": true
+    },
+    {
+      "frame": 171,
+      "bbox": [
+        1268,
+        743,
+        941,
+        604
+      ],
+      "visible": true
+    },
+    {
+      "frame": 174,
+      "bbox": [
+        1311,
+        717,
+        883,
+        598
+      ],
+      "visible": true
+    },
+    {
+      "frame": 177,
+      "bbox": [
+        1277,
+        719,
+        913,
+        638
+      ],
+      "visible": true
+    },
+    {
+      "frame": 180,
+      "bbox": [
+        1282,
+        729,
+        993,
+        559
+      ],
+      "visible": true
+    },
+    {
+      "frame": 183,
+      "bbox": [
+        1322,
+        768,
+        873,
+        513
+      ],
+      "visible": true
+    },
+    {
+      "frame": 186,
+      "bbox": [
+        1344,
+        737,
+        914,
+        537
+      ],
+      "visible": true
+    },
+    {
+      "frame": 189,
+      "bbox": [
+        1324,
+        735,
+        960,
+        569
+      ],
+      "visible": true
+    },
+    {
+      "frame": 192,
+      "bbox": [
+        1322,
+        747,
+        954,
+        556
+      ],
+      "visible": true
+    },
+    {
+      "frame": 195,
+      "bbox": [
+        1341,
+        727,
+        926,
+        628
+      ],
+      "visible": true
+    },
+    {
+      "frame": 198,
+      "bbox": [
+        1329,
+        736,
+        965,
+        568
+      ],
+      "visible": true
+    },
+    {
+      "frame": 201,
+      "bbox": [
+        1325,
+        709,
+        994,
+        615
+      ],
+      "visible": true
+    },
+    {
+      "frame": 204,
+      "bbox": [
+        1325,
+        716,
+        982,
+        591
+      ],
+      "visible": true
+    },
+    {
+      "frame": 207,
+      "bbox": [
+        1384,
+        731,
+        873,
+        584
+      ],
+      "visible": true
+    },
+    {
+      "frame": 210,
+      "bbox": [
+        1342,
+        720,
+        955,
+        583
+      ],
+      "visible": true
+    },
+    {
+      "frame": 213,
+      "bbox": [
+        1322,
+        738,
+        959,
+        556
+      ],
+      "visible": true
+    },
+    {
+      "frame": 216,
+      "bbox": [
+        1320,
+        700,
+        940,
+        586
+      ],
+      "visible": true
+    },
+    {
+      "frame": 219,
+      "bbox": [
+        1326,
+        705,
+        944,
+        614
+      ],
+      "visible": true
+    },
+    {
+      "frame": 222,
+      "bbox": [
+        1360,
+        688,
+        936,
+        567
+      ],
+      "visible": true
+    },
+    {
+      "frame": 225,
+      "bbox": [
+        1349,
+        688,
+        957,
+        601
+      ],
+      "visible": true
+    },
+    {
+      "frame": 228,
+      "bbox": [
+        1332,
+        684,
+        953,
+        577
+      ],
+      "visible": true
+    },
+    {
+      "frame": 231,
+      "bbox": [
+        1362,
+        706,
+        934,
+        608
+      ],
+      "visible": true
+    },
+    {
+      "frame": 234,
+      "bbox": [
+        1346,
+        710,
+        934,
+        574
+      ],
+      "visible": true
+    },
+    {
+      "frame": 237,
+      "bbox": [
+        1352,
+        721,
+        933,
+        531
+      ],
+      "visible": true
+    },
+    {
+      "frame": 240,
+      "bbox": [
+        1335,
+        739,
+        954,
+        513
+      ],
+      "visible": true
+    },
+    {
+      "frame": 243,
+      "bbox": [
+        1293,
+        738,
+        947,
+        574
+      ],
+      "visible": true
+    },
+    {
+      "frame": 246,
+      "bbox": [
+        1288,
+        695,
+        1016,
+        574
+      ],
+      "visible": true
+    },
+    {
+      "frame": 249,
+      "bbox": [
+        1282,
+        755,
+        934,
+        549
+      ],
+      "visible": true
+    },
+    {
+      "frame": 252,
+      "bbox": [
+        1288,
+        726,
+        960,
+        573
+      ],
+      "visible": true
+    },
+    {
+      "frame": 255,
+      "bbox": [
+        1268,
+        723,
+        984,
+        570
+      ],
+      "visible": true
+    },
+    {
+      "frame": 258,
+      "bbox": [
+        1280,
+        746,
+        984,
+        586
+      ],
+      "visible": true
+    },
+    {
+      "frame": 261,
+      "bbox": [
+        1210,
+        711,
+        1045,
+        605
+      ],
+      "visible": true
+    },
+    {
+      "frame": 264,
+      "bbox": [
+        1227,
+        703,
+        989,
+        616
+      ],
+      "visible": true
+    },
+    {
+      "frame": 267,
+      "bbox": [
+        1214,
+        698,
+        1010,
+        602
+      ],
+      "visible": true
+    },
+    {
+      "frame": 270,
+      "bbox": [
+        1174,
+        679,
+        1050,
+        603
+      ],
+      "visible": true
+    },
+    {
+      "frame": 273,
+      "bbox": [
+        1203,
+        732,
+        917,
+        545
+      ],
+      "visible": true
+    },
+    {
+      "frame": 276,
+      "bbox": [
+        1368,
+        770,
+        560,
+        202
+      ],
+      "visible": true
+    },
+    {
+      "frame": 279,
+      "bbox": [
+        1159,
+        676,
+        1041,
+        619
+      ],
+      "visible": true
+    },
+    {
+      "frame": 282,
+      "bbox": [
+        1183,
+        708,
+        1011,
+        551
+      ],
+      "visible": true
+    },
+    {
+      "frame": 285,
+      "bbox": [
+        1134,
+        703,
+        1043,
+        573
+      ],
+      "visible": true
+    },
+    {
+      "frame": 288,
+      "bbox": [
+        1066,
+        741,
+        1168,
+        568
+      ],
+      "visible": true
+    },
+    {
+      "frame": 291,
+      "bbox": [
+        1078,
+        740,
+        1188,
+        560
+      ],
+      "visible": true
+    },
+    {
+      "frame": 294,
+      "bbox": [
+        1053,
+        736,
+        1163,
+        553
+      ],
+      "visible": true
+    },
+    {
+      "frame": 297,
+      "bbox": [
+        1016,
+        733,
+        1171,
+        577
+      ],
+      "visible": true
+    },
+    {
+      "frame": 300,
+      "bbox": [
+        1020,
+        727,
+        1176,
+        592
+      ],
+      "visible": true
+    },
+    {
+      "frame": 303,
+      "bbox": [
+        1017,
+        721,
+        1168,
+        573
+      ],
+      "visible": true
+    },
+    {
+      "frame": 306,
+      "bbox": [
+        1006,
+        691,
+        1190,
+        632
+      ],
+      "visible": true
+    },
+    {
+      "frame": 309,
+      "bbox": [
+        987,
+        712,
+        1157,
+        613
+      ],
+      "visible": true
+    },
+    {
+      "frame": 312,
+      "bbox": [
+        987,
+        731,
+        1109,
+        628
+      ],
+      "visible": true
+    },
+    {
+      "frame": 315,
+      "bbox": [
+        998,
+        672,
+        1131,
+        614
+      ],
+      "visible": true
+    },
+    {
+      "frame": 318,
+      "bbox": [
+        946,
+        700,
+        1180,
+        584
+      ],
+      "visible": true
+    },
+    {
+      "frame": 321,
+      "bbox": [
+        940,
+        711,
+        1161,
+        587
+      ],
+      "visible": true
+    },
+    {
+      "frame": 324,
+      "bbox": [
+        905,
+        694,
+        1215,
+        609
+      ],
+      "visible": true
+    },
+    {
+      "frame": 327,
+      "bbox": [
+        906,
+        749,
+        1173,
+        554
+      ],
+      "visible": true
+    },
+    {
+      "frame": 330,
+      "bbox": [
+        885,
+        727,
+        1203,
+        550
+      ],
+      "visible": true
+    },
+    {
+      "frame": 333,
+      "bbox": [
+        868,
+        728,
+        1218,
+        538
+      ],
+      "visible": true
+    },
+    {
+      "frame": 336,
+      "bbox": [
+        861,
+        737,
+        1221,
+        558
+      ],
+      "visible": true
+    },
+    {
+      "frame": 339,
+      "bbox": [
+        862,
+        735,
+        1219,
+        542
+      ],
+      "visible": true
+    },
+    {
+      "frame": 342,
+      "bbox": [
+        819,
+        735,
+        1290,
+        584
+      ],
+      "visible": true
+    },
+    {
+      "frame": 345,
+      "bbox": [
+        820,
+        724,
+        1257,
+        616
+      ],
+      "visible": true
+    },
+    {
+      "frame": 348,
+      "bbox": [
+        779,
+        721,
+        1277,
+        646
+      ],
+      "visible": true
+    },
+    {
+      "frame": 351,
+      "bbox": [
+        791,
+        698,
+        1211,
+        660
+      ],
+      "visible": true
+    },
+    {
+      "frame": 354,
+      "bbox": [
+        754,
+        698,
+        1222,
+        663
+      ],
+      "visible": true
+    },
+    {
+      "frame": 357,
+      "bbox": [
+        784,
+        704,
+        1150,
+        624
+      ],
+      "visible": true
+    },
+    {
+      "frame": 360,
+      "bbox": [
+        796,
+        712,
+        1110,
+        640
+      ],
+      "visible": true
+    },
+    {
+      "frame": 363,
+      "bbox": [
+        786,
+        730,
+        1107,
+        611
+      ],
+      "visible": true
+    },
+    {
+      "frame": 366,
+      "bbox": [
+        767,
+        738,
+        1119,
+        589
+      ],
+      "visible": true
+    },
+    {
+      "frame": 369,
+      "bbox": [
+        744,
+        759,
+        1150,
+        589
+      ],
+      "visible": true
+    },
+    {
+      "frame": 372,
+      "bbox": [
+        725,
+        774,
+        1163,
+        600
+      ],
+      "visible": true
+    },
+    {
+      "frame": 375,
+      "bbox": [
+        737,
+        785,
+        1129,
+        547
+      ],
+      "visible": true
+    },
+    {
+      "frame": 378,
+      "bbox": [
+        753,
+        784,
+        1039,
+        571
+      ],
+      "visible": true
+    },
+    {
+      "frame": 381,
+      "bbox": [
+        699,
+        795,
+        1136,
+        560
+      ],
+      "visible": true
+    },
+    {
+      "frame": 384,
+      "bbox": [
+        694,
+        770,
+        1137,
+        567
+      ],
+      "visible": true
+    },
+    {
+      "frame": 387,
+      "bbox": [
+        693,
+        793,
+        1094,
+        578
+      ],
+      "visible": true
+    },
+    {
+      "frame": 390,
+      "bbox": [
+        662,
+        790,
+        1079,
+        646
+      ],
+      "visible": true
+    },
+    {
+      "frame": 393,
+      "bbox": [
+        666,
+        785,
+        1048,
+        558
+      ],
+      "visible": true
+    }
+  ]
+}

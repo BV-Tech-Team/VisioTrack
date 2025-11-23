@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: "VisioTrack",
   description: "Real-Time Object Tracking Using SiamRPN",
   icons: {
-    icon: "/logo.png",
+    icon: "photos/logo.png",
   },
 };
 

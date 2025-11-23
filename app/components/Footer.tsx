@@ -70,36 +70,36 @@ export default function Footer() {
             <h3 className="text-black font-bold text-base mb-4">Resources</h3>
             <ul className="space-y-3">
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/resources"
                   className="text-black hover:text-blue-600 transition-colors text-sm"
                 >
                   Documentation
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/resources"
                   className="text-black hover:text-blue-600 transition-colors text-sm"
                 >
                   API Reference
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/resources"
                   className="text-black hover:text-blue-600 transition-colors text-sm"
                 >
                   Tutorials
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/resources"
                   className="text-black hover:text-blue-600 transition-colors text-sm"
                 >
                   Support
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

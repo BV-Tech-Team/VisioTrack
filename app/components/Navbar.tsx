@@ -13,14 +13,14 @@ export default function Navbar() {
           <div className="shrink-0">
             <Link href="/" className="flex items-center gap-3">
               <Image
-                src="/logo.png"
+                src="/photos/logo.png"
                 alt="VisioTrack Logo"
                 width={45}
                 height={45}
                 className="h-11 w-11"
               />
               <Image
-                src="/logo-name.png"
+                src="/photos/logo-name.png"
                 alt="VisioTrack"
                 width={140}
                 height={40}

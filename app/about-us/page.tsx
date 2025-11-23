@@ -4,11 +4,6 @@ import React, { useEffect } from "react";
 import { FiMail, FiLinkedin, FiTwitter, FiGithub } from "react-icons/fi";
 import Image from "next/image";
 
-import teamMember1 from "../assets/photos/aziz.jpg";
-import teamMember2 from "../assets/photos/Nezam.jpg";
-import teamMember3 from "../assets/photos/nasim.jpg";
-import reality from "../assets/photos/reality.png";
-
 export default function AboutUs() {
   useEffect(() => {
     window.scrollTo({
@@ -23,7 +18,7 @@ export default function AboutUs() {
       id: 1,
       name: "Md Azizur Rahman",
       role: "Full Stack Developer",
-      image: teamMember1,
+      image: "/photos/aziz.jpg",
       bio: "A problem-solving enthusiast who thrives on technical challenges. Aziz combines expertise in computer vision algorithms and backend development to create robust tracking solutions. With a background in competitive programming, he ensures our platform is technically sound.",
       social: {
         email: "azizurrahman.zero@gmail.com",
@@ -36,7 +31,7 @@ export default function AboutUs() {
       id: 2,
       name: "Md Nezam Uddin",
       role: "Full Stack Developer",
-      image: teamMember2,
+      image: "/photos/Nezam.jpg",
       bio: "Our algorithm specialist with expertise across the entire stack. Nezam's background in machine learning drives our vision tracking engine, while his frontend skills ensure beautiful presentation. He constantly refines our algorithms to deliver precise tracking results.",
       social: {
         email: "nezam0266@gmail.com",
@@ -49,7 +44,7 @@ export default function AboutUs() {
       id: 3,
       name: "Nasim Rana Feroz",
       role: "Full Stack Developer",
-      image: teamMember3,
+      image: "/photos/nasim.jpg",
       bio: "A versatile developer passionate about seamless user experiences. Nasim excels in React and Node.js, with a keen eye for UI/UX design that makes our platform both beautiful and functional. When not coding, he explores new computer vision techniques to enhance our tracking capabilities.",
       social: {
         email: "feroznasimrana@gmail.com",
@@ -68,9 +63,9 @@ export default function AboutUs() {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Mission</h2>
             <div className="w-16 h-1 bg-blue-600 mb-6"></div>
             <p className="mb-6 text-black">
-              We&apos;re building a smarter way to analyze and track objects using
-              cutting-edge computer vision technology. Our platform combines
-              advanced machine learning algorithms with intuitive user
+              We&apos;re building a smarter way to analyze and track objects
+              using cutting-edge computer vision technology. Our platform
+              combines advanced machine learning algorithms with intuitive user
               interfaces to help users train and test vision models that truly
               match their needs.
             </p>
@@ -83,8 +78,10 @@ export default function AboutUs() {
           <div className="md:w-1/2">
             <div className="aspect-video rounded-lg shadow-xl overflow-hidden">
               <Image
-                src={reality}
+                src="/photos/reality.png"
                 alt="Our mission"
+                width={800}
+                height={450}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -100,10 +97,10 @@ export default function AboutUs() {
             </h2>
             <div className="w-16 h-1 bg-blue-600 mx-auto mb-6"></div>
             <p className="max-w-2xl mx-auto text-black">
-              We&apos;re three friends who met in our software engineering program
-              and bonded over our shared love of AI and computer vision.
-              Together, we&apos;re combining our technical skills and passion for
-              innovation to build something special.
+              We&apos;re three friends who met in our software engineering
+              program and bonded over our shared love of AI and computer vision.
+              Together, we&apos;re combining our technical skills and passion
+              for innovation to build something special.
             </p>
           </div>
 
@@ -117,6 +114,8 @@ export default function AboutUs() {
                   <Image
                     src={member.image}
                     alt={member.name}
+                    width={400}
+                    height={320}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -194,8 +193,9 @@ export default function AboutUs() {
               </div>
               <h3 className="text-xl font-bold mb-2">Innovation</h3>
               <p className="text-black">
-                We&apos;re constantly exploring new technologies and approaches to
-                make computer vision more accessible and powerful for everyone.
+                We&apos;re constantly exploring new technologies and approaches
+                to make computer vision more accessible and powerful for
+                everyone.
               </p>
             </div>
 
