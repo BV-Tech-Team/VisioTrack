@@ -14,7 +14,9 @@ export const metadata: Metadata = {
   title: "VisioTrack",
   description: "Real-Time Object Tracking Using SiamRPN",
   icons: {
-    icon: "photos/logo.png",
+    // Use absolute path so the browser requests `/photos/logo.png` directly
+    // (relative paths can produce unexpected requests like `/logo.png`).
+    icon: "/photos/logo.png",
   },
 };
 
