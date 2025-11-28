@@ -43,10 +43,23 @@ export default function Test() {
   );
   const [boundingBox, setBoundingBox] = useState<BoundingBox | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [processedVideoUrl, setProcessedVideoUrl] = useState<string | null>(
+    null
+  );
+  const [statusMessage, setStatusMessage] = useState<string>("");
+  const [apiUrl, setApiUrl] = useState<string>("");
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const uploadedFileRef = useRef<File | null>(null);
+
+  useEffect(() => {
+    // Load API URL from environment or localStorage
+    const envApiUrl = process.env.NEXT_PUBLIC_API_URL;
+    const savedApiUrl = localStorage.getItem("visiotrack_api_url");
+    setApiUrl(envApiUrl || savedApiUrl || "");
+  }, []);
 
   useEffect(() => {
     if (selectedVideo && videoRef.current) {
@@ -85,6 +98,7 @@ export default function Test() {
   const handleVideoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file && file.type.startsWith("video/")) {
+      uploadedFileRef.current = file; // Store the actual file
       const videoURL = URL.createObjectURL(file);
       const newVideo: VideoItem = {
         id: `uploaded_${Date.now()}`,
@@ -94,6 +108,8 @@ export default function Test() {
       };
       setVideos([...videos, newVideo]);
       setSelectedVideo(newVideo);
+      setProcessedVideoUrl(null); // Clear previous results
+      setStatusMessage("");
     }
   };
 
@@ -152,38 +168,79 @@ export default function Test() {
       return;
     }
 
-    setIsProcessing(true);
+    if (!apiUrl) {
+      alert("Please configure API URL first (click 'Configure API' button)");
+      return;
+    }
 
-    const payload = {
-      videoPath: selectedVideo.videoPath,
-      boundingBox: {
-        x: Math.round(boundingBox.x),
-        y: Math.round(boundingBox.y),
-        width: Math.round(boundingBox.width),
-        height: Math.round(boundingBox.height),
-      },
-    };
+    setIsProcessing(true);
+    setStatusMessage("Preparing video for tracking...");
+    setProcessedVideoUrl(null);
 
     try {
-      // Replace with your actual backend endpoint
-      const response = await fetch("/api/process-tracking", {
+      let videoBlob: Blob;
+
+      // Get video file
+      if (selectedVideo.isUploaded && uploadedFileRef.current) {
+        // Use the uploaded file directly
+        videoBlob = uploadedFileRef.current;
+      } else {
+        // Fetch preloaded video
+        setStatusMessage("Downloading video...");
+        const response = await fetch(selectedVideo.videoPath);
+        if (!response.ok) throw new Error("Failed to fetch video");
+        videoBlob = await response.blob();
+      }
+
+      // Prepare form data
+      const formData = new FormData();
+      formData.append("video", videoBlob, "video.mp4");
+      formData.append("bbox_x", Math.round(boundingBox.x).toString());
+      formData.append("bbox_y", Math.round(boundingBox.y).toString());
+      formData.append(
+        "bbox_w",
+        Math.round(Math.abs(boundingBox.width)).toString()
+      );
+      formData.append(
+        "bbox_h",
+        Math.round(Math.abs(boundingBox.height)).toString()
+      );
+
+      setStatusMessage("Sending to Colab API (GPU processing)...");
+
+      // Send to Colab API
+      const response = await fetch(`${apiUrl}/track`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "true",
         },
-        body: JSON.stringify(payload),
+        body: formData,
       });
 
-      if (response.ok) {
-        const result = await response.json();
-        console.log("Tracking result:", result);
-        alert("Tracking request submitted successfully!");
-      } else {
-        throw new Error("Failed to process tracking");
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || `Server error: ${response.status}`);
       }
+
+      setStatusMessage("Processing complete! Downloading result...");
+
+      // Get the processed video with correct MIME type
+      const processedBlob = await response.blob();
+      // Create a new blob with explicit video/mp4 MIME type (avoid reusing 'videoBlob' name)
+      const resultBlob = new Blob([processedBlob], { type: "video/mp4" });
+      const url = URL.createObjectURL(resultBlob);
+      setProcessedVideoUrl(url);
+      setStatusMessage("✅ Tracking completed successfully!");
     } catch (error) {
       console.error("Error:", error);
-      alert("Failed to submit tracking request. Check console for details.");
+      setStatusMessage(
+        `❌ Error: ${error instanceof Error ? error.message : "Unknown error"}`
+      );
+      alert(
+        `Failed to process video.\n\nError: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }\n\nMake sure:\n1. Colab notebook is running\n2. API URL is correct\n3. ngrok tunnel is active`
+      );
     } finally {
       setIsProcessing(false);
     }
@@ -192,13 +249,118 @@ export default function Test() {
   const handleReset = () => {
     setBoundingBox(null);
     setStartPoint(null);
+    setProcessedVideoUrl(null);
+    setStatusMessage("");
     drawVideoFrame();
+  };
+
+  const handleDownloadResult = () => {
+    if (!processedVideoUrl) return;
+
+    const a = document.createElement("a");
+    a.href = processedVideoUrl;
+    a.download = `tracked_${selectedVideo?.name || "video"}.mp4`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
+  const handleConfigureApi = () => {
+    const url = prompt(
+      "Enter your Colab API URL (from ngrok):\n\nExample: https://abc123.ngrok.io",
+      apiUrl
+    );
+    if (url) {
+      const cleanUrl = url.trim().replace(/\/$/, ""); // Remove trailing slash
+      setApiUrl(cleanUrl);
+      localStorage.setItem("visiotrack_api_url", cleanUrl);
+      alert("API URL saved! You can now start tracking.");
+    }
+  };
+
+  const handleTestApi = async () => {
+    if (!apiUrl) {
+      alert("Please configure API URL first");
+      return;
+    }
+
+    try {
+      const response = await fetch(`${apiUrl}/health`, {
+        headers: {
+          "ngrok-skip-browser-warning": "true",
+        },
+      });
+      const data = await response.json();
+      alert(
+        `✅ API is working!\n\nStatus: ${data.status}\nGPU: ${
+          data.gpu_available ? data.gpu_name : "Not available"
+        }`
+      );
+    } catch (error) {
+      alert(
+        `❌ Cannot connect to API\n\nError: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }\n\nMake sure your Colab notebook is running!`
+      );
+    }
   };
 
   return (
     <div className="min-h-screen bg-[#e8f1f5] py-8">
       <div className="container mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-8 text-center">Test Videos</h1>
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-4xl font-bold">Test Videos</h1>
+
+          {/* API Configuration Buttons */}
+          <div className="flex gap-2">
+            <button
+              onClick={handleTestApi}
+              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-semibold"
+              title="Test API connection"
+            >
+              🔌 Test API
+            </button>
+            <button
+              onClick={handleConfigureApi}
+              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm font-semibold"
+              title="Configure Colab API URL"
+            >
+              ⚙️ Configure API
+            </button>
+          </div>
+        </div>
+
+        {/* API Status Banner */}
+        {apiUrl && (
+          <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="font-semibold text-black">API URL:</span>
+                <span className="ml-2 text-blue-700 font-mono text-sm">
+                  {apiUrl}
+                </span>
+              </div>
+              <span className="text-xs text-gray-600">✓ Configured</span>
+            </div>
+          </div>
+        )}
+
+        {!apiUrl && (
+          <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">⚠️</span>
+              <div>
+                <div className="font-semibold text-black">
+                  API URL Not Configured
+                </div>
+                <div className="text-sm text-gray-700">
+                  Click Configure API button to set your Colab ngrok URL before
+                  tracking
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left Side - Video List */}
@@ -298,7 +460,7 @@ export default function Test() {
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="flex gap-4 mt-6 justify-center">
+                  <div className="flex gap-4 mt-6 justify-center flex-wrap">
                     <button
                       onClick={handleReset}
                       className="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors font-semibold"
@@ -307,35 +469,123 @@ export default function Test() {
                     </button>
                     <button
                       onClick={handleSubmit}
-                      disabled={!boundingBox || isProcessing}
+                      disabled={!boundingBox || isProcessing || !apiUrl}
                       className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
-                        !boundingBox || isProcessing
+                        !boundingBox || isProcessing || !apiUrl
                           ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                           : "bg-blue-600 text-white hover:bg-blue-700"
                       }`}
                     >
-                      {isProcessing ? "Processing..." : "Start Tracking"}
+                      {isProcessing
+                        ? "Processing..."
+                        : "🚀 Start Tracking (GPU)"}
                     </button>
                   </div>
+
+                  {/* Status Message */}
+                  {statusMessage && (
+                    <div
+                      className={`mt-4 p-4 rounded-lg ${
+                        statusMessage.includes("❌")
+                          ? "bg-red-50 border border-red-200 text-red-800"
+                          : statusMessage.includes("✅")
+                          ? "bg-green-50 border border-green-200 text-green-800"
+                          : "bg-blue-50 border border-blue-200 text-blue-800"
+                      }`}
+                    >
+                      <div className="font-semibold">{statusMessage}</div>
+                    </div>
+                  )}
                 </div>
+
+                {/* Processed Video Result */}
+                {processedVideoUrl && (
+                  <div className="bg-white rounded-lg shadow-lg p-6">
+                    <div className="flex justify-between items-center mb-4">
+                      <h3 className="text-xl font-bold text-black">
+                        Tracking Result
+                      </h3>
+                      <button
+                        onClick={handleDownloadResult}
+                        className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-semibold"
+                      >
+                        📥 Download Video
+                      </button>
+                    </div>
+                    <div className="w-full max-w-3xl mx-auto">
+                      <video
+                        src={processedVideoUrl}
+                        controls
+                        autoPlay
+                        muted
+                        playsInline
+                        className="w-full rounded-lg bg-black"
+                        onError={(e) => {
+                          console.error("Video playback error:", e);
+                          const videoElement =
+                            e.currentTarget as HTMLVideoElement;
+                          console.error("Video error details:", {
+                            error: videoElement.error,
+                            networkState: videoElement.networkState,
+                            readyState: videoElement.readyState,
+                            src: videoElement.src,
+                          });
+                          setStatusMessage(
+                            "⚠️ Video playback failed. The download button still works! Try re-generating or use a different browser."
+                          );
+                        }}
+                        onLoadedData={() => {
+                          console.log("Video loaded successfully");
+                        }}
+                      >
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+                )}
 
                 {/* Instructions */}
                 <div className="bg-white rounded-lg shadow-lg p-6">
                   <h3 className="text-xl font-bold mb-3 text-black">
-                    How to Use
+                    📖 How to Use
                   </h3>
                   <ol className="list-decimal list-inside space-y-2 text-black">
-                    <li>Select a video from the list or upload your own</li>
                     <li>
-                      Click and drag on the video frame to draw a bounding box
-                      around the object
+                      <strong>Configure API:</strong> Click Configure API and
+                      paste your Colab ngrok URL
                     </li>
                     <li>
-                      Click "Start Tracking" to send the data to the backend for
-                      processing
+                      <strong>Select Video:</strong> Choose from the list or
+                      upload your own
                     </li>
-                    <li>Use "Reset" to clear the bounding box and try again</li>
+                    <li>
+                      <strong>Draw Bounding Box:</strong> Click and drag on the
+                      video frame
+                    </li>
+                    <li>
+                      <strong>Start Tracking:</strong> Click the button to
+                      process with GPU
+                    </li>
+                    <li>
+                      <strong>Download Result:</strong> Save the tracked video
+                      when complete
+                    </li>
                   </ol>
+
+                  <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+                    <h4 className="font-bold mb-2 text-black">
+                      🚀 Colab Setup:
+                    </h4>
+                    <ol className="list-decimal list-inside space-y-1 text-sm text-gray-700">
+                      <li>Open the VisioTrack_Colab.ipynb in Google Colab</li>
+                      <li>
+                        Enable GPU (Runtime → Change runtime type → T4 GPU)
+                      </li>
+                      <li>Run all cells in the notebook</li>
+                      <li>Copy the ngrok URL from Step 3</li>
+                      <li>Paste it here using Configure API button</li>
+                    </ol>
+                  </div>
                 </div>
               </>
             ) : (
