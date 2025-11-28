@@ -71,7 +71,7 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <Link
-                  href="/resources"
+                  href="/resources?tab=documentation"
                   className="text-black hover:text-blue-600 transition-colors text-sm"
                 >
                   Documentation
@@ -79,7 +79,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/resources"
+                  href="/resources?tab=api"
                   className="text-black hover:text-blue-600 transition-colors text-sm"
                 >
                   API Reference
@@ -87,7 +87,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/resources"
+                  href="/resources?tab=tutorials"
                   className="text-black hover:text-blue-600 transition-colors text-sm"
                 >
                   Tutorials
@@ -95,7 +95,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/resources"
+                  href="/resources?tab=support"
                   className="text-black hover:text-blue-600 transition-colors text-sm"
                 >
                   Support

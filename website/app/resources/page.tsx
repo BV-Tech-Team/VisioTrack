@@ -1,11 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
 type TabType = "documentation" | "api" | "tutorials" | "support";
 
 export default function ResourcesPage() {
   const [activeTab, setActiveTab] = useState<TabType>("documentation");
+  const searchParams = useSearchParams();
+
+  // When the page loads or the query changes, read `?tab=` and set the
+  // active tab accordingly. This lets footer or external links like
+  // `/resources?tab=api` open the correct tab instead of always showing
+  // Documentation.
+  useEffect(() => {
+    const tab = searchParams?.get("tab");
+    if (tab === "api" || tab === "tutorials" || tab === "support") {
+      setActiveTab(tab as TabType);
+    } else {
+      setActiveTab("documentation");
+    }
+  }, [searchParams]);
 
   return (
     <div className="min-h-screen bg-[#e8f1f5] py-16 px-4 sm:px-6 lg:px-8">
