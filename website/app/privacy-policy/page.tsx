@@ -1,9 +1,11 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 export default function PrivacyPolicy() {
   const [activeTab, setActiveTab] = useState("privacy");
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     window.scrollTo({
@@ -12,6 +14,16 @@ export default function PrivacyPolicy() {
       behavior: "smooth",
     });
   }, []);
+
+  // Read ?tab= query parameter and set the active tab accordingly
+  useEffect(() => {
+    const tab = searchParams?.get("tab");
+    if (tab === "terms" || tab === "cookies") {
+      setActiveTab(tab);
+    } else {
+      setActiveTab("privacy");
+    }
+  }, [searchParams]);
 
   return (
     <div className="min-h-screen bg-[#e8f1f5] py-16">
