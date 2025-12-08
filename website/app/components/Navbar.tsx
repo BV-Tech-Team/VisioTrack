@@ -20,7 +20,7 @@ export default function Navbar() {
                 className="h-11 w-11"
               />
               <Image
-                src="/photos/logo-name.png"
+                src="/photos/logo_name.png"
                 alt="VisioTrack"
                 width={140}
                 height={40}

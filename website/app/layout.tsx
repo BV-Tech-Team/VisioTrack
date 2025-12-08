@@ -2,12 +2,20 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 export const metadata: Metadata = {
-  title: "VisioTrack",
-  description: "Real-Time Object Tracking Using SiamRPN",
+  title: "VisioTrack - Advanced Object Tracking Platform",
+  description: "Real-time object tracking platform using SiamRPN for computer vision applications. Train, test, and deploy cutting-edge tracking models.",
   icons: {
     icon: "/photos/logo.png",
+  },
+  keywords: ["object tracking", "computer vision", "SiamRPN", "machine learning", "AI", "video analysis"],
+  authors: [{ name: "BV Tech Team" }],
+  openGraph: {
+    title: "VisioTrack - Advanced Object Tracking Platform",
+    description: "Real-time object tracking using SiamRPN",
+    type: "website",
   },
 };
 
@@ -24,9 +32,11 @@ export default function RootLayout({
     // warnings while keeping React hydration intact.
     <html lang="en" suppressHydrationWarning>
       <body className={`font-sans antialiased`}>
-        <Navbar />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
+        <ErrorBoundary>
+          <Navbar />
+          <main className="min-h-screen">{children}</main>
+          <Footer />
+        </ErrorBoundary>
       </body>
     </html>
   );

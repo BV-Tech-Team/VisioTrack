@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import LoadingSpinner from "../components/LoadingSpinner";
+import EmptyState from "../components/EmptyState";
 
 interface VideoItem {
   id: string;
@@ -72,16 +74,22 @@ export default function Train() {
   const [selectedVideo, setSelectedVideo] = useState<VideoItem>(videos[0]);
   const [jsonData, setJsonData] = useState<JsonData | null>(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const loadJson = async () => {
       setLoading(true);
+      setError(null);
       try {
         const response = await fetch(selectedVideo.jsonPath);
+        if (!response.ok) {
+          throw new Error("Failed to load annotation data");
+        }
         const data = await response.json();
         setJsonData(data);
       } catch (error) {
         console.error("Error loading JSON:", error);
+        setError(error instanceof Error ? error.message : "Failed to load data");
         setJsonData(null);
       } finally {
         setLoading(false);
@@ -152,10 +160,34 @@ export default function Train() {
                 Tracking Data (JSON)
               </h2>
               {loading ? (
-                <div className="text-center py-8">
-                  <p className="text-gray-600">Loading JSON data...</p>
+                <div className="py-8">
+                  <LoadingSpinner text="Loading annotation data..." />
                 </div>
-              ) : (
+              ) : error ? (
+                <EmptyState
+                  icon={
+                    <svg
+                      className="w-12 h-12 text-red-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  }
+                  title="Failed to Load Data"
+                  description={error}
+                  action={{
+                    label: "Try Again",
+                    onClick: () => setSelectedVideo({ ...selectedVideo }),
+                  }}
+                />
+              ) : jsonData ? (
                 <>
                   <div className="bg-gray-900 rounded-lg p-4 max-h-[500px] overflow-y-auto">
                     <pre className="text-green-400 text-sm font-mono">
@@ -169,6 +201,26 @@ export default function Train() {
                     </p>
                   </div>
                 </>
+              ) : (
+                <EmptyState
+                  icon={
+                    <svg
+                      className="w-12 h-12 text-gray-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                      />
+                    </svg>
+                  }
+                  title="No Data Available"
+                  description="Select a video to view its tracking annotations"
+                />
               )}
             </div>
           </div>

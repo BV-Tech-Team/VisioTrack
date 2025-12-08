@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import LoadingSpinner from "../components/LoadingSpinner";
+import EmptyState from "../components/EmptyState";
 
 interface VideoItem {
   id: string;
@@ -48,6 +50,10 @@ export default function Test() {
   );
   const [statusMessage, setStatusMessage] = useState<string>("");
   const [apiUrl, setApiUrl] = useState<string>("");
+  const [banner, setBanner] = useState<
+    | { type: "info" | "success" | "warning" | "error"; message: string }
+    | null
+  >(null);
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -164,17 +170,24 @@ export default function Test() {
 
   const handleSubmit = async () => {
     if (!selectedVideo || !boundingBox) {
-      alert("Please select a video and draw a bounding box");
+      setBanner({
+        type: "warning",
+        message: "Select a video and draw a bounding box before tracking.",
+      });
       return;
     }
 
     if (!apiUrl) {
-      alert("Please configure API URL first (click 'Configure API' button)");
+      setBanner({
+        type: "warning",
+        message: "Configure your API URL first using the Configure API button.",
+      });
       return;
     }
 
     setIsProcessing(true);
     setStatusMessage("Preparing video for tracking...");
+    setBanner(null);
     setProcessedVideoUrl(null);
 
     try {
@@ -233,14 +246,13 @@ export default function Test() {
       setStatusMessage("✅ Tracking completed successfully!");
     } catch (error) {
       console.error("Error:", error);
-      setStatusMessage(
-        `❌ Error: ${error instanceof Error ? error.message : "Unknown error"}`
-      );
-      alert(
-        `Failed to process video.\n\nError: ${
-          error instanceof Error ? error.message : "Unknown error"
-        }\n\nMake sure:\n1. Colab notebook is running\n2. API URL is correct\n3. ngrok tunnel is active`
-      );
+      const friendlyMessage =
+        error instanceof Error ? error.message : "Unknown error";
+      setStatusMessage(`❌ Error: ${friendlyMessage}`);
+      setBanner({
+        type: "error",
+        message: `Failed to process video. ${friendlyMessage}. Check that the API is reachable and your bounding box is valid.`,
+      });
     } finally {
       setIsProcessing(false);
     }
@@ -274,13 +286,19 @@ export default function Test() {
       const cleanUrl = url.trim().replace(/\/$/, ""); // Remove trailing slash
       setApiUrl(cleanUrl);
       localStorage.setItem("visiotrack_api_url", cleanUrl);
-      alert("API URL saved! You can now start tracking.");
+      setBanner({
+        type: "success",
+        message: "API URL saved. You can start testing now.",
+      });
     }
   };
 
   const handleTestApi = async () => {
     if (!apiUrl) {
-      alert("Please configure API URL first");
+      setBanner({
+        type: "warning",
+        message: "Please configure API URL first.",
+      });
       return;
     }
 
@@ -291,44 +309,83 @@ export default function Test() {
         },
       });
       const data = await response.json();
-      alert(
-        `✅ API is working!\n\nStatus: ${data.status}\nGPU: ${
+      setBanner({
+        type: "success",
+        message: `API is working. Status: ${data.status}. GPU: ${
           data.gpu_available ? data.gpu_name : "Not available"
-        }`
-      );
+        }`,
+      });
     } catch (error) {
-      alert(
-        `❌ Cannot connect to API\n\nError: ${
+      setBanner({
+        type: "error",
+        message: `Cannot connect to API. ${
           error instanceof Error ? error.message : "Unknown error"
-        }\n\nMake sure your Colab notebook is running!`
-      );
+        }. Make sure your backend is running and reachable.`,
+      });
     }
   };
 
   return (
     <div className="min-h-screen bg-[#e8f1f5] py-8">
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-bold">Test Videos</h1>
-
-          {/* API Configuration Buttons */}
-          <div className="flex gap-2">
-            <button
-              onClick={handleTestApi}
-              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-semibold"
-              title="Test API connection"
-            >
-              🔌 Test API
-            </button>
-            <button
-              onClick={handleConfigureApi}
-              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm font-semibold"
-              title="Configure Colab API URL"
-            >
-              ⚙️ Configure API
-            </button>
+        <div className="bg-white border border-zinc-200 rounded-2xl shadow-sm p-6 mb-6">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+            <div>
+              <p className="text-sm text-gray-500 mb-1 uppercase tracking-wide">Testing Workspace</p>
+              <h1 className="text-3xl font-bold text-black">Test Videos</h1>
+              <p className="text-sm text-gray-600 mt-1">
+                Upload or pick a sample, draw a box, then run tracking on the configured API.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <button
+                onClick={handleTestApi}
+                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-semibold shadow-sm"
+                title="Test API connection"
+              >
+                🔌 Test API
+              </button>
+              <button
+                onClick={handleConfigureApi}
+                className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm font-semibold shadow-sm"
+                title="Configure Colab API URL"
+              >
+                ⚙️ Configure API
+              </button>
+              <div
+                className={`px-3 py-2 rounded-lg text-sm font-semibold border ${
+                  apiUrl
+                    ? "bg-emerald-50 text-emerald-800 border-emerald-200"
+                    : "bg-amber-50 text-amber-800 border-amber-200"
+                }`}
+              >
+                {apiUrl ? "✓ API Configured" : "⚠️ API Not Configured"}
+              </div>
+            </div>
           </div>
         </div>
+
+        {banner && (
+          <div
+            className={`mb-6 p-4 rounded-lg border shadow-sm ${
+              banner.type === "success"
+                ? "bg-emerald-50 border-emerald-200 text-emerald-800"
+                : banner.type === "warning"
+                ? "bg-amber-50 border-amber-200 text-amber-800"
+                : banner.type === "error"
+                ? "bg-red-50 border-red-200 text-red-800"
+                : "bg-blue-50 border-blue-200 text-blue-800"
+            }`}
+          >
+            <div className="font-semibold">
+              {banner.type === "success" && "Success"}
+              {banner.type === "warning" && "Heads up"}
+              {banner.type === "error" && "Error"}
+              {banner.type === "info" && "Info"}
+            </div>
+            <div className="text-sm mt-1">{banner.message}</div>
+          </div>
+        )}
 
         {/* API Status Banner */}
         {apiUrl && (
@@ -483,6 +540,11 @@ export default function Test() {
                   </div>
 
                   {/* Status Message */}
+                  {isProcessing && !statusMessage && (
+                    <div className="mt-6">
+                      <LoadingSpinner size="md" text="Processing your video..." />
+                    </div>
+                  )}
                   {statusMessage && (
                     <div
                       className={`mt-4 p-4 rounded-lg ${
@@ -589,14 +651,30 @@ export default function Test() {
                 </div>
               </>
             ) : (
-              <div className="bg-white rounded-lg shadow-lg p-12 text-center">
-                <h2 className="text-2xl font-bold mb-4 text-black">
-                  No Video Selected
-                </h2>
-                <p className="text-gray-600">
-                  Please select a video from the list or upload a new one to get
-                  started
-                </p>
+              <div className="bg-white rounded-lg shadow-lg">
+                <EmptyState
+                  icon={
+                    <svg
+                      className="w-16 h-16 text-blue-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                      />
+                    </svg>
+                  }
+                  title="No Video Selected"
+                  description="Choose a video from the list or upload your own to start tracking objects"
+                  action={{
+                    label: "Upload Video",
+                    onClick: () => fileInputRef.current?.click(),
+                  }}
+                />
               </div>
             )}
           </div>

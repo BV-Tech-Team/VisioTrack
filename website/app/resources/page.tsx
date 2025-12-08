@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 type TabType = "documentation" | "api" | "tutorials" | "support";
 
@@ -16,52 +17,40 @@ export default function ResourcesPage() {
 
         {/* Tabs */}
         <div className="flex flex-wrap justify-center gap-4 mb-12">
-          <button
-            onClick={() => setActiveTab("documentation")}
-            className={`px-6 py-3 rounded-lg font-medium transition-all ${
-              activeTab === "documentation"
-                ? "bg-blue-600 text-white"
-                : "bg-white text-black hover:bg-blue-50"
-            }`}
-          >
-            Documentation
-          </button>
-          <button
-            onClick={() => setActiveTab("api")}
-            className={`px-6 py-3 rounded-lg font-medium transition-all ${
-              activeTab === "api"
-                ? "bg-blue-600 text-white"
-                : "bg-white text-black hover:bg-blue-50"
-            }`}
-          >
-            API Reference
-          </button>
-          <button
-            onClick={() => setActiveTab("tutorials")}
-            className={`px-6 py-3 rounded-lg font-medium transition-all ${
-              activeTab === "tutorials"
-                ? "bg-blue-600 text-white"
-                : "bg-white text-black hover:bg-blue-50"
-            }`}
-          >
-            Tutorials
-          </button>
-          <button
-            onClick={() => setActiveTab("support")}
-            className={`px-6 py-3 rounded-lg font-medium transition-all ${
-              activeTab === "support"
-                ? "bg-blue-600 text-white"
-                : "bg-white text-black hover:bg-blue-50"
-            }`}
-          >
-            Support
-          </button>
+          {[
+            { key: "documentation", label: "Documentation" },
+            { key: "api", label: "API Reference" },
+            { key: "tutorials", label: "Tutorials" },
+            { key: "support", label: "Support" },
+          ].map((tab) => (
+            <motion.button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key as TabType)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`px-6 py-3 rounded-lg font-medium transition-all ${
+                activeTab === tab.key
+                  ? "bg-blue-600 text-white shadow-lg"
+                  : "bg-white text-black hover:bg-blue-50"
+              }`}
+            >
+              {tab.label}
+            </motion.button>
+          ))}
         </div>
 
         {/* Content */}
-        <div className="bg-white rounded-lg shadow-lg p-8">
-          {activeTab === "documentation" && (
-            <div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="bg-white rounded-lg shadow-lg p-8"
+          >
+            {activeTab === "documentation" && (
+              <div>
               <h2 className="text-3xl font-bold text-black mb-6">
                 Documentation
               </h2>
@@ -414,7 +403,8 @@ export default function ResourcesPage() {
               </div>
             </div>
           )}
-        </div>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );

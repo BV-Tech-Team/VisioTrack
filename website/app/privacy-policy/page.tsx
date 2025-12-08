@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function PrivacyPolicy() {
   const [activeTab, setActiveTab] = useState("privacy");
@@ -28,43 +29,56 @@ export default function PrivacyPolicy() {
 
         {/* Tabs */}
         <div className="flex flex-wrap justify-center gap-4 mb-8">
-          <button
+          <motion.button
             onClick={() => setActiveTab("privacy")}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             className={`px-6 py-3 rounded-lg font-bold text-lg transition-all ${
               activeTab === "privacy"
-                ? "bg-blue-600 text-white"
+                ? "bg-blue-600 text-white shadow-lg"
                 : "bg-white text-black hover:bg-blue-100"
             }`}
           >
             Privacy Policy
-          </button>
-          <button
+          </motion.button>
+          <motion.button
             onClick={() => setActiveTab("terms")}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             className={`px-6 py-3 rounded-lg font-bold text-lg transition-all ${
               activeTab === "terms"
-                ? "bg-blue-600 text-white"
+                ? "bg-blue-600 text-white shadow-lg"
                 : "bg-white text-black hover:bg-blue-100"
             }`}
           >
             Terms of Service
-          </button>
-          <button
+          </motion.button>
+          <motion.button
             onClick={() => setActiveTab("cookies")}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             className={`px-6 py-3 rounded-lg font-bold text-lg transition-all ${
               activeTab === "cookies"
-                ? "bg-blue-600 text-white"
+                ? "bg-blue-600 text-white shadow-lg"
                 : "bg-white text-black hover:bg-blue-100"
             }`}
           >
             Cookie Policy
-          </button>
+          </motion.button>
         </div>
 
         {/* Content */}
         <div className="bg-white rounded-lg shadow-lg p-8 md:p-12">
-          {/* Privacy Policy */}
-          {activeTab === "privacy" && (
-            <div>
+          <AnimatePresence mode="wait">
+            {/* Privacy Policy */}
+            {activeTab === "privacy" && (
+              <motion.div
+                key="privacy"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+              >
               <h2 className="text-3xl font-bold mb-6">Privacy Policy</h2>
               <p className="text-sm text-gray-600 mb-8">
                 Last updated: {new Date().toLocaleDateString()}
@@ -150,12 +164,18 @@ export default function PrivacyPolicy() {
                   </p>
                 </section>
               </div>
-            </div>
+            </motion.div>
           )}
 
           {/* Terms of Service */}
           {activeTab === "terms" && (
-            <div>
+            <motion.div
+              key="terms"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
               <h2 className="text-3xl font-bold mb-6">Terms of Service</h2>
               <p className="text-sm text-gray-600 mb-8">
                 Last updated: {new Date().toLocaleDateString()}
@@ -261,12 +281,18 @@ export default function PrivacyPolicy() {
                   </p>
                 </section>
               </div>
-            </div>
+            </motion.div>
           )}
 
           {/* Cookie Policy */}
           {activeTab === "cookies" && (
-            <div>
+            <motion.div
+              key="cookies"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
               <h2 className="text-3xl font-bold mb-6">Cookie Policy</h2>
               <p className="text-sm text-gray-600 mb-8">
                 Last updated: {new Date().toLocaleDateString()}
@@ -408,8 +434,9 @@ export default function PrivacyPolicy() {
                   </p>
                 </section>
               </div>
-            </div>
+            </motion.div>
           )}
+          </AnimatePresence>
         </div>
       </div>
     </div>

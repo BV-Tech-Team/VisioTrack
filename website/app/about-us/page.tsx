@@ -3,6 +3,7 @@
 import React, { useEffect } from "react";
 import { FiMail, FiLinkedin, FiTwitter, FiGithub } from "react-icons/fi";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function AboutUs() {
   useEffect(() => {
@@ -20,11 +21,12 @@ export default function AboutUs() {
       role: "Full Stack Developer",
       image: "/photos/aziz.jpg",
       bio: "A problem-solving enthusiast who thrives on technical challenges. Aziz combines expertise in computer vision algorithms and backend development to create robust tracking solutions. With a background in competitive programming, he ensures our platform is technically sound.",
+      website: "https://azizerorahman.tech/",
       social: {
-        email: "azizurrahman.zero@gmail.com",
-        linkedin: "https://linkedin.com/in/azizurrahman-zero",
-        twitter: "https://twitter.com/alexdev",
-        github: "https://github.com/azizurrahman-zero",
+        email: "azizerorahman@gmail.com",
+        linkedin: "https://www.linkedin.com/in/azizerorahman/",
+        twitter: "https://twitter.com/azizerorahman",
+        github: "https://github.com/azizerorahman/",
       },
     },
     {
@@ -33,10 +35,11 @@ export default function AboutUs() {
       role: "Full Stack Developer",
       image: "/photos/Nezam.jpg",
       bio: "Our algorithm specialist with expertise across the entire stack. Nezam's background in machine learning drives our vision tracking engine, while his frontend skills ensure beautiful presentation. He constantly refines our algorithms to deliver precise tracking results.",
+      website: "https://ne-zam.netlify.app/",
       social: {
         email: "nezam0266@gmail.com",
-        linkedin: "https://linkedin.com/in/md-nezam-uddin-497a54282",
-        twitter: "/",
+        linkedin: "https://www.linkedin.com/in/md-nezam-uddin-497a54282/",
+        twitter: "https://twitter.com/mdnezam",
         github: "https://github.com/mdnezam-uddin",
       },
     },
@@ -46,10 +49,11 @@ export default function AboutUs() {
       role: "Full Stack Developer",
       image: "/photos/nasim.jpg",
       bio: "A versatile developer passionate about seamless user experiences. Nasim excels in React and Node.js, with a keen eye for UI/UX design that makes our platform both beautiful and functional. When not coding, he explores new computer vision techniques to enhance our tracking capabilities.",
+      website: "https://nas-im.onrender.com/",
       social: {
         email: "feroznasimrana@gmail.com",
-        linkedin: "https://linkedin.com/in/nasim-rana-feroz",
-        twitter: "/about-us",
+        linkedin: "https://www.linkedin.com/in/nasim-rana-feroz",
+        twitter: "https://twitter.com/nasimferoz",
         github: "https://github.com/NasimRanaFeroz",
       },
     },
@@ -105,10 +109,15 @@ export default function AboutUs() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mx-auto max-w-5xl">
-            {teamMembers.map((member) => (
-              <div
+            {teamMembers.map((member, index) => (
+              <motion.div
                 key={member.id}
-                className="bg-[#e8f1f5] rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:scale-105"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.2, duration: 0.5 }}
+                whileHover={{ y: -10, boxShadow: "0 20px 40px rgba(0,0,0,0.15)" }}
+                className="bg-[#e8f1f5] rounded-lg overflow-hidden shadow-lg"
               >
                 <div className="h-80 overflow-hidden">
                   <Image
@@ -127,10 +136,22 @@ export default function AboutUs() {
                   </p>
                   <p className="mb-6 text-black">{member.bio}</p>
 
+                  {member.website && (
+                    <a
+                      href={member.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block mb-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-semibold"
+                    >
+                      Visit Portfolio 🌐
+                    </a>
+                  )}
+
                   <div className="flex space-x-4">
                     <a
                       href={`mailto:${member.social.email}`}
                       className="text-gray-600 hover:text-blue-600 transition-colors"
+                      title="Email"
                     >
                       <FiMail size={20} />
                     </a>
@@ -139,6 +160,7 @@ export default function AboutUs() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-gray-600 hover:text-blue-600 transition-colors"
+                      title="LinkedIn"
                     >
                       <FiLinkedin size={20} />
                     </a>
@@ -147,6 +169,7 @@ export default function AboutUs() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-gray-600 hover:text-blue-600 transition-colors"
+                      title="Twitter"
                     >
                       <FiTwitter size={20} />
                     </a>
@@ -155,12 +178,13 @@ export default function AboutUs() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-gray-600 hover:text-blue-600 transition-colors"
+                      title="GitHub"
                     >
                       <FiGithub size={20} />
                     </a>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

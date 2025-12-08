@@ -152,7 +152,9 @@ export default function Footer() {
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a
-                href="#"
+                href="https://twitter.com/visiotrack"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-black hover:text-blue-600 transition-colors"
                 aria-label="Twitter"
               >
@@ -165,7 +167,9 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://github.com/BV-Tech-Team/VisioTrack"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-black hover:text-blue-600 transition-colors"
                 aria-label="GitHub"
               >
@@ -178,7 +182,9 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://linkedin.com/company/visiotrack"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-black hover:text-blue-600 transition-colors"
                 aria-label="LinkedIn"
               >
