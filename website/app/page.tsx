@@ -25,7 +25,7 @@ export default function Home() {
       y: 0,
       opacity: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
         damping: 10,
       },
@@ -38,10 +38,9 @@ export default function Home() {
       scale: 1,
       opacity: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 50,
         damping: 15,
-        duration: 0.8,
       },
     },
   };
